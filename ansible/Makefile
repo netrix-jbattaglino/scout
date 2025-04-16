@@ -3,7 +3,7 @@
         install-explorer echo
 
 # Variables
-VAULT_PASSWORD_ARG  ?= --vault-password-file vault/pwd.sh
+#VAULT_PASSWORD_ARG  ?= --vault-password-file vault/pwd.sh
 INVENTORY_FILE      ?= inventory.yaml
 FQDN                := $(shell hostname -f)
 
@@ -19,7 +19,7 @@ ANSIBLE_ADDITIONAL_FLAGS := $(if $(ADD),$(ADD),)
 
 # Common ansible-playbook command
 ANSIBLE_CMD         := $(ANSIBLE_DEBUG_ENV) ansible-playbook -v -i $(INVENTORY_FILE) \
-                       $(DIFF_FLAG) $(VAULT_PASSWORD_ARG) -l $(FQDN) $(ANSIBLE_STEP) $(ANSIBLE_ADDITIONAL_FLAGS)
+                       $(DIFF_FLAG)$(ANSIBLE_STEP) $(ANSIBLE_ADDITIONAL_FLAGS)
 
 all: deps
 	$(ANSIBLE_CMD) playbooks/main.yaml

@@ -1,10 +1,10 @@
 ---
 - name: Install JupyterHub
-  hosts: server
+  hosts: localhost
   gather_facts: false
   environment:
     HELM_PLUGINS: '{{ helm_plugins_dir }}'
-    KUBECONFIG: '{{ kubeconfig_yaml }}'
+    #KUBECONFIG: '{{ kubeconfig_yaml }}'
   tasks:
     - name: Setup storage
       include_tasks: tasks/storage_setup.yaml
@@ -19,6 +19,7 @@
 
     - name: Create Jupyter namespace
       kubernetes.core.k8s:
+        kubeconfig: '{{ kubeconfig }}'
         name: jupyter
         api_version: v1
         kind: Namespace
